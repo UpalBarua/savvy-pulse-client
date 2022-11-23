@@ -9,3 +9,13 @@
 .flow > * + * {
   margin-top: var(--flow, 1rem);
 }
+
+.btn-primary {
+  min-width: 6rem;
+  padding: var(--spacing-100);
+  color: var(--clr-light-400);
+  font-weight: var(--fw-semibold);
+  background-color: var(--clr-accent-400);
+  border: 0;
+  border-radius: 100vmax;
+}
