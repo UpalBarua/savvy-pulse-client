@@ -1,0 +1,11 @@
+/* ******************** */
+/* UTILITIES            */
+/* ******************** */
+.container {
+  max-width: min(70rem, 100% - 20px);
+  margin-inline: auto;
+}
+
+.flow > * + * {
+  margin-top: var(--flow, 1rem);
+}
