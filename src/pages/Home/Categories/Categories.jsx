@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 import styles from './Categories.module.css';
 
 // const CATEGORIES = [
@@ -24,16 +25,24 @@ import styles from './Categories.module.css';
 // ];
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     const response = await axios.get('http://localhost:3000/categories');
+  //     setCategories(response.data);
+  //   };
+
+  //   fetchCategories();
+  // }, []);
+
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
       const response = await axios.get('http://localhost:3000/categories');
-      setCategories(response.data);
-    };
-
-    fetchCategories();
-  }, []);
+      return response.data;
+    },
+  });
 
   return (
     <section className="container">

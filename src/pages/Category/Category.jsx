@@ -4,6 +4,7 @@ import PurchaseModal from './PurchaseModal/PurchaseModal';
 import axios from 'axios';
 import styles from './Category.module.css';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 // const PRODUCTS = [
 //   {
@@ -89,19 +90,29 @@ import { useParams } from 'react-router-dom';
 const Category = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
-  const [productsData, setProductsData] = useState([]);
+  // const [productsData, setProductsData] = useState([]);
   const params = useParams();
 
-  useEffect(() => {
-    const fetchProductsData = async () => {
+  // useEffect(() => {
+  //   const fetchProductsData = async () => {
+  //     const response = await axios.get(
+  //       `http://localhost:3000/categories/${params.type}`
+  //     );
+  //     setProductsData(response.data);
+  //   };
+
+  //   fetchProductsData();
+  // }, []);
+
+  const { data: products = [] } = useQuery({
+    queryKey: ['products'],
+    queryFn: async () => {
       const response = await axios.get(
         `http://localhost:3000/categories/${params.type}`
       );
-      setProductsData(response.data);
-    };
-
-    fetchProductsData();
-  }, []);
+      return response.data;
+    },
+  });
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -114,9 +125,9 @@ const Category = () => {
   return (
     <section className="container">
       <div className={styles.grid}>
-        {productsData.map((product) => (
+        {products.map((product) => (
           <CategoryCard
-            key={product.id}
+            key={product._id}
             product={product}
             handleModalOpen={handleModalOpen}
             setModalData={setModalData}
