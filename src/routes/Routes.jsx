@@ -4,6 +4,8 @@ import Home from '../pages/Home/Home';
 import Signup from '../pages/Signup/Signup';
 import Category from '../pages/Category/Category';
 import Login from '../pages/Login/Login';
+import AddProduct from '../pages/AddProduct/AddProduct';
+import NotFound from '../pages/NotFound/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,15 @@ const router = createBrowserRouter([
         path: '/category/:type',
         element: <Category />,
       },
+      {
+        path: '/add-product',
+        element: <AddProduct />,
+      },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
 

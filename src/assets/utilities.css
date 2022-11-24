@@ -18,6 +18,7 @@
   background-color: var(--clr-accent-400);
   border: 0;
   border-radius: 100vmax;
+  text-align: center;
 }
 
 .control {

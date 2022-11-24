@@ -10,7 +10,6 @@ const useUserType = (email) => {
         `http://localhost:3000/user/type/${email}`
       );
       setUserType(response?.data);
-      console.log(response?.data);
     };
 
     if (email) fetchUserType();

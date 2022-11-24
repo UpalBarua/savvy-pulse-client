@@ -13,8 +13,6 @@ const Header = () => {
   const { user, logOut } = useAuth();
   const { userType } = useUserType(user?.email);
 
-  console.log(userType);
-
   const handleNavToggle = () => {
     setIsNavVisible((prevIsNavVisible) => !prevIsNavVisible);
     document.body.style.overflow = isNavVisible ? 'unset' : 'hidden';
@@ -38,17 +36,17 @@ const Header = () => {
 
           {user?.uid && userType === 'buyer' && (
             <li className={styles.item}>
-              <NavLink to="/dashboard">My Orders</NavLink>
+              <NavLink to="/my-orders">My Orders</NavLink>
             </li>
           )}
 
           {user?.uid && userType === 'seller' && (
             <>
               <li className={styles.item}>
-                <NavLink to="/dashboard">Add Product</NavLink>
+                <NavLink to="/add-product">Add Product</NavLink>
               </li>
               <li className={styles.item}>
-                <NavLink to="/dashboard">My Products</NavLink>
+                <NavLink to="/my-products">My Products</NavLink>
               </li>
             </>
           )}
