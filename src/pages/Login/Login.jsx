@@ -1,31 +1,28 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { LeapFrog } from '@uiball/loaders';
-import styles from './Signup.module.css';
 import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import styles from './Login.module.css';
 
-const Signup = () => {
+const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { signUp, googleSignIn, updateUserProfile } = useAuth();
+  const { logIn, googleSignIn } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignup = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
     const formData = {
-      name: event.target.name.value,
       email: event.target.email.value,
       password: event.target.password.value,
-      type: event.target.type.value,
     };
 
     try {
-      const response = await signUp(formData.email, formData.password);
+      const response = await logIn(formData.email, formData.password);
       if (response?.user?.uid) {
-        updateUserProfile(formData.name);
         toast.success('Sign Up Successful!', {
           style: {
             border: '1px solid var(--clr-accent-300)',
@@ -41,14 +38,12 @@ const Signup = () => {
       }
     } catch (error) {
       toast.error(error.message);
-
-      console.log(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleGoogleSignup = async (event) => {
+  const handleGoogleLogin = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
@@ -78,12 +73,8 @@ const Signup = () => {
   return (
     <section className="container">
       <div className={styles.signup}>
-        <h2>Signup</h2>
-        <form onSubmit={handleSignup}>
-          <div className="control">
-            <label className="label">Name</label>
-            <input className="input" name="name" type="text" />
-          </div>
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
           <div className="control">
             <label className="label">Email</label>
             <input className="input" name="email" type="text" />
@@ -92,26 +83,19 @@ const Signup = () => {
             <label className="label">Password</label>
             <input className="input" name="password" type="password" />
           </div>
-          <div className="control">
-            <label className="label">Account type</label>
-            <select className="input" name="type" id="">
-              <option value="buyer">buyer</option>
-              <option value="seller">seller</option>
-            </select>
-          </div>
           {isLoading ? (
             <LeapFrog size={40} speed={2.5} color="#c558ef" />
           ) : (
             <button className="btn-primary" type="submit">
-              Sign Up
+              Login
             </button>
           )}
         </form>
-        <button onClick={handleGoogleSignup}>google</button>
+        <button onClick={handleGoogleLogin}>google</button>
       </div>
       <Toaster position="top-center" reverseOrder={false} />
     </section>
   );
 };
 
-export default Signup;
+export default Login;

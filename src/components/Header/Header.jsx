@@ -5,13 +5,15 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { GiGuitarBassHead } from 'react-icons/gi';
 import styles from './Header.module.css';
 import { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false);
+  const { user, logOut } = useAuth();
 
   const handleNavToggle = () => {
     setIsNavVisible((prevIsNavVisible) => !prevIsNavVisible);
-    document.body.style.overflow = isNavVisible ? 'hidden' : 'unset';
+    document.body.style.overflow = isNavVisible ? 'unset' : 'hidden';
   };
 
   return (
@@ -27,22 +29,28 @@ const Header = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li className={styles.item}>
-            <NavLink to="/">Blog</NavLink>
+            <NavLink to="/blog">Blog</NavLink>
           </li>
           <li className={styles.item}>
-            <NavLink to="/">Dashboard</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
           </li>
-          <li className={styles.item}>
-            <NavLink to="/">Sign Up</NavLink>
-          </li>
-          <li className={styles.item}>
-            <NavLink to="/">Login</NavLink>
-          </li>
-          <li className={styles.item}>
-            <button className="btn-primary">Logout</button>
-          </li>
+          {user?.uid ? (
+            <li className={styles.item}>
+              <button className="btn-primary" onClick={logOut}>
+                Logout
+              </button>
+            </li>
+          ) : (
+            <>
+              <li className={styles.item}>
+                <NavLink to="/signup">Sign Up</NavLink>
+              </li>
+              <li className={styles.item}>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            </>
+          )}
         </ul>
-
         <button className={styles.toggle} onClick={handleNavToggle}>
           {isNavVisible ? <AiOutlineClose /> : <HiMenuAlt3 />}
         </button>
