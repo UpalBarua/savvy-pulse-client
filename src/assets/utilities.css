@@ -19,3 +19,26 @@
   border: 0;
   border-radius: 100vmax;
 }
+
+.control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-300);
+}
+
+.label {
+  font-weight: var(--fw-semibold);
+}
+
+.input {
+  background-color: var(--clr-dark-400);
+  border: 2px solid transparent;
+  color: var(--clr-light-400);
+  padding: var(--spacing-100); var(--spacing-200);
+}
+
+.input:hover,
+.input:focus {
+  outline: 0;
+  border-color: var(--clr-light-600);
+}
