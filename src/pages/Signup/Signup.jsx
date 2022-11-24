@@ -5,11 +5,24 @@ import styles from './Signup.module.css';
 import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { signUp, googleSignIn, updateUserProfile } = useAuth();
   const navigate = useNavigate();
+
+  const saveUser = async (name, email, type = 'buyer') => {
+    try {
+      const response = await axios.post('http://localhost:3000/user/new', {
+        name,
+        email,
+        type,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSignup = async (event) => {
     event.preventDefault();
@@ -26,6 +39,8 @@ const Signup = () => {
       const response = await signUp(formData.email, formData.password);
       if (response?.user?.uid) {
         updateUserProfile(formData.name);
+        saveUser(formData.name, formData.email, formData.type);
+        console.log(response);
         toast.success('Sign Up Successful!', {
           style: {
             border: '1px solid var(--clr-accent-300)',
@@ -55,6 +70,7 @@ const Signup = () => {
     try {
       const response = await googleSignIn();
       if (response?.user?.uid) {
+        saveUser(response.user.displayName, response.user.email);
         toast.success('Sign Up Successful!', {
           style: {
             border: '1px solid var(--clr-accent-300)',
@@ -102,12 +118,14 @@ const Signup = () => {
           {isLoading ? (
             <LeapFrog size={40} speed={2.5} color="#c558ef" />
           ) : (
-            <button className="btn-primary" type="submit">
-              Sign Up
-            </button>
+            <>
+              <button className="btn-primary" type="submit">
+                Sign Up
+              </button>
+              <button onClick={handleGoogleSignup}>google</button>
+            </>
           )}
         </form>
-        <button onClick={handleGoogleSignup}>google</button>
       </div>
       <Toaster position="top-center" reverseOrder={false} />
     </section>
