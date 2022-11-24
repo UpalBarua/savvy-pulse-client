@@ -1,9 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useAuth } from '../../../contexts/AuthContext';
 import styles from './PurchaseModal.module.css';
 
 const PurchaseModal = ({ isModalOpen, handleModalClose, modalData }) => {
+  const { user } = useAuth();
+
   return (
     <div className={styles.overlay} data-visible={isModalOpen}>
       <div className={styles.modal}>
@@ -16,11 +19,15 @@ const PurchaseModal = ({ isModalOpen, handleModalClose, modalData }) => {
         <form className={styles.purchaseForm}>
           <div className="control">
             <label className="label">Name</label>
-            <input className="input" type="text" />
+            <input
+              className="input"
+              type="text"
+              defaultValue={user.displayName}
+            />
           </div>
           <div className="control">
             <label className="label">Email</label>
-            <input className="input" type="text" />
+            <input className="input" type="text" defaultValue={user.email} />
           </div>
           <div className="control">
             <label className="label">Guitar</label>

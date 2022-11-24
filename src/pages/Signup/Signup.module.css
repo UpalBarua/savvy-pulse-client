@@ -1,0 +1,5 @@
+.signup {
+  /* padding: var(--spacing-100); */
+  width: min(100vw - 2rem, 25rem);
+  margin-inline: auto;
+}
