@@ -3,9 +3,11 @@ import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Toaster, toast } from 'react-hot-toast';
 import styles from './AddProduct.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAddProduct = async (event) => {
     event.preventDefault();
@@ -40,7 +42,7 @@ const AddProduct = () => {
         formData
       );
       if (response.data.acknowledged) {
-        toast.success('Sign Up Successful!', {
+        toast.success('Product Added!', {
           style: {
             border: '1px solid var(--clr-accent-300)',
             padding: '16px',

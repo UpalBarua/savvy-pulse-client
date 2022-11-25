@@ -1,0 +1,29 @@
+.overlay {
+  background-color: var(--clr-dark-500);
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.modal {
+  background-color: var(--clr-dark-400);
+  padding: var(--spacing-700);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-300);
+}
+
+.title {
+  font-size: var(--fs-500);
+  font-weight: var(--fw-semibold);
+}
+
+.btnGroup {
+  display: flex;
+  gap: var(--spacing-200);
+  justify-content: center;
+}

@@ -3,11 +3,11 @@ import format from 'date-fns/format';
 import styles from './ProductRow.module.css';
 import axios from 'axios';
 
-const ProductRow = ({ product, refetch }) => {
+const ProductRow = ({ product, refetch, handleDelete }) => {
   const { _id, name, img, postedOn, price, type, isAvailable, isAdvertised } =
     product;
 
-  console.log(product);
+  // console.log(product);
 
   const handleProductSell = async () => {
     try {
@@ -95,7 +95,9 @@ const ProductRow = ({ product, refetch }) => {
         </button>
       </td>
       <td>
-        <button className="btn-primary">Delete</button>
+        <button className="btn-primary" onClick={handleDelete(_id)}>
+          Delete
+        </button>
       </td>
     </tr>
   );
