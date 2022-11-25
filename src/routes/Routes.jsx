@@ -9,6 +9,7 @@ import NotFound from '../pages/NotFound/NotFound';
 import Blog from '../pages/Blog/Blog';
 import MyProducts from '../pages/MyProducts/MyProducts';
 import AllBuyers from '../pages/AllBuyers/AllBuyers';
+import AllSellers from '../pages/AllSellers/AllSellers';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
         element: <Blog />,
       },
       { path: '/all-buyers', element: <AllBuyers /> },
-      { path: '/all-sellers', element: <AllBuyers /> },
+      { path: '/all-sellers', element: <AllSellers /> },
     ],
   },
   {
