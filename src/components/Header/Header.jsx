@@ -7,6 +7,7 @@ import styles from './Header.module.css';
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import useUserType from '../../hooks/useUserType';
+import axios from 'axios';
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false);
@@ -35,9 +36,14 @@ const Header = () => {
           </li>
 
           {user?.uid && userType === 'buyer' && (
-            <li className={styles.item}>
-              <NavLink to="/my-orders">My Orders</NavLink>
-            </li>
+            <>
+              <li className={styles.item}>
+                <NavLink to="/wishlist">Wishlist</NavLink>
+              </li>
+              <li className={styles.item}>
+                <NavLink to="/my-orders">My Orders</NavLink>
+              </li>
+            </>
           )}
 
           {user?.uid && userType === 'seller' && (

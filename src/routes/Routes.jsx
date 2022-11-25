@@ -10,6 +10,7 @@ import Blog from '../pages/Blog/Blog';
 import MyProducts from '../pages/MyProducts/MyProducts';
 import AllBuyers from '../pages/AllBuyers/AllBuyers';
 import AllSellers from '../pages/AllSellers/AllSellers';
+import Wishlist from '../pages/Wishlist/Wishlist';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
       },
       { path: '/all-buyers', element: <AllBuyers /> },
       { path: '/all-sellers', element: <AllSellers /> },
+      { path: '/wishlist', element: <Wishlist /> },
     ],
   },
   {

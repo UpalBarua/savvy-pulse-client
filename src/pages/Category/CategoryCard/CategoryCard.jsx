@@ -51,6 +51,9 @@ const CategoryCard = ({ product, handleModalOpen, setModalData }) => {
         <button className="btn-primary" onClick={handlePurchase}>
           purchase
         </button>
+        <button className="btn-primary" onClick={handlePurchase}>
+          purchase
+        </button>
       </div>
     </div>
   );
