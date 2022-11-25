@@ -104,7 +104,7 @@ const Category = () => {
   //   fetchProductsData();
   // }, []);
 
-  const { data: products = [] } = useQuery({
+  const { data: products = [], refetch } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
       const response = await axios.get(
@@ -131,6 +131,7 @@ const Category = () => {
             product={product}
             handleModalOpen={handleModalOpen}
             setModalData={setModalData}
+            refetch={refetch}
           />
         ))}
       </div>

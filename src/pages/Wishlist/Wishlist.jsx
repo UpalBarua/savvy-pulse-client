@@ -18,7 +18,7 @@ const Wishlist = () => {
     <section className="container">
       <h2>wishlist</h2>
       {wishlistData.map((data) => (
-        <CategoryCard product={data} />
+        <CategoryCard key={data._id} product={data} refetch={refetch} />
       ))}
     </section>
   );
