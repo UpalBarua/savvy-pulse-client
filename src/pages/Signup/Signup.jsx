@@ -13,12 +13,17 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const saveUser = async (name, email, type = 'buyer') => {
+    const newUser = { name, email, type };
+
+    if (type === 'seller') {
+      newUser.isVerified = false;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3000/user/new', {
-        name,
-        email,
-        type,
-      });
+      const response = await axios.post(
+        'http://localhost:3000/user/new',
+        newUser
+      );
     } catch (error) {
       console.log(error);
     }
@@ -27,12 +32,13 @@ const Signup = () => {
   const handleSignup = async (event) => {
     event.preventDefault();
     setIsLoading(true);
+    const form = event.target;
 
     const formData = {
-      name: event.target.name.value,
-      email: event.target.email.value,
-      password: event.target.password.value,
-      type: event.target.type.value,
+      name: form.name.value,
+      email: form.email.value,
+      password: form.password.value,
+      type: form.type.value,
     };
 
     try {

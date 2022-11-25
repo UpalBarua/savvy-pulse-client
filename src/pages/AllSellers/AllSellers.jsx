@@ -81,6 +81,7 @@ const AllSellers = () => {
               key={seller._id}
               seller={seller}
               handleDelete={handleDelete}
+              refetch={refetch}
             />
           ))}
         </tbody>
