@@ -108,7 +108,7 @@ const Category = () => {
     queryKey: ['products'],
     queryFn: async () => {
       const response = await axios.get(
-        `http://localhost:3000/categories/${params.type}`
+        `http://localhost:3000/products/${params.type}`
       );
       return response.data;
     },

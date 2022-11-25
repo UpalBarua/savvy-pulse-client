@@ -6,6 +6,8 @@ import Category from '../pages/Category/Category';
 import Login from '../pages/Login/Login';
 import AddProduct from '../pages/AddProduct/AddProduct';
 import NotFound from '../pages/NotFound/NotFound';
+import Blog from '../pages/Blog/Blog';
+import MyProducts from '../pages/MyProducts/MyProducts';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: '/add-product',
         element: <AddProduct />,
+      },
+      {
+        path: '/my-products',
+        element: <MyProducts />,
+      },
+      {
+        path: '/blog',
+        element: <Blog />,
       },
     ],
   },

@@ -40,7 +40,6 @@ const Signup = () => {
       if (response?.user?.uid) {
         updateUserProfile(formData.name);
         saveUser(formData.name, formData.email, formData.type);
-        console.log(response);
         toast.success('Sign Up Successful!', {
           style: {
             border: '1px solid var(--clr-accent-300)',
@@ -110,7 +109,7 @@ const Signup = () => {
           </div>
           <div className="control">
             <label className="label">Account type</label>
-            <select className="input" name="type" id="">
+            <select className="input" name="type">
               <option value="buyer">buyer</option>
               <option value="seller">seller</option>
             </select>
