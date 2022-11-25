@@ -4,7 +4,10 @@ import styles from './ProductRow.module.css';
 import axios from 'axios';
 
 const ProductRow = ({ product, refetch }) => {
-  const { _id, name, img, postedOn, price, type, isAvailable } = product;
+  const { _id, name, img, postedOn, price, type, isAvailable, isAdvertised } =
+    product;
+
+  console.log(product);
 
   const handleProductSell = async () => {
     try {
@@ -19,6 +22,29 @@ const ProductRow = ({ product, refetch }) => {
       // );
       const response = await axios.patch(
         `http://localhost:3000/my-products/sell/${_id}`
+      );
+
+      if (response?.data?.modifiedCount > 0) {
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleProductAdvertisement = async () => {
+    try {
+      // const response = await fetch(
+      //   `http://localhost:3000/my-products/sell/${_id}`,
+      //   {
+      //     method: 'PATCH',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
+      const response = await axios.patch(
+        `http://localhost:3000/my-products/advertisements/${_id}`
       );
 
       if (response?.data?.modifiedCount > 0) {
@@ -50,13 +76,23 @@ const ProductRow = ({ product, refetch }) => {
       <td>
         <p>{format(new Date(postedOn), 'PP')}</p>
       </td>
+      {isAvailable ? (
+        <td>
+          <button className="btn-primary" onClick={handleProductAdvertisement}>
+            {isAdvertised ? (
+              <span>Remove Advertisement</span>
+            ) : (
+              <span>Advertise</span>
+            )}
+          </button>
+        </td>
+      ) : (
+        <td />
+      )}
       <td>
         <button className="btn-primary" onClick={handleProductSell}>
           {isAvailable ? <span>Available</span> : <span>Sold</span>}
         </button>
-      </td>
-      <td>
-        <button className="btn-primary">Advertise</button>
       </td>
       <td>
         <button className="btn-primary">Delete</button>
