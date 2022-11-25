@@ -1,0 +1,18 @@
+.table {
+  width: 100%;
+  padding: var(--spacing-300);
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: center;
+  font-size: var(--fs-500);
+  font-weight: var(--fw-semibold);
+  background-color: var(--clr-dark-400);
+  padding: var(--spacing-400) var(--spacing-600);
+}
+
+.table td {
+  text-align: center;
+  padding-block: var (--spacing-300);
+}
