@@ -12,6 +12,7 @@ const AddProduct = () => {
   const handleAddProduct = async (event) => {
     event.preventDefault();
     const form = event.target;
+
     const formData = {
       name: form.name.value,
       description: form.description.value,
@@ -34,14 +35,12 @@ const AddProduct = () => {
       isAdvertised: false,
     };
 
-    console.log(JSON.stringify(formData));
-
     try {
       const response = await axios.post(
         'http://localhost:3000/products/new',
         formData
       );
-      if (response.data.acknowledged) {
+      if (response?.data?.acknowledged) {
         toast.success('Product Added!', {
           style: {
             border: '1px solid var(--clr-accent-300)',

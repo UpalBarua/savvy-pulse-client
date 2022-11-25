@@ -54,10 +54,10 @@ const Header = () => {
           {user?.uid && userType === 'admin' && (
             <>
               <li className={styles.item}>
-                <NavLink to="/dashboard">All Sellers</NavLink>
+                <NavLink to="/all-buyers">All Buyers</NavLink>
               </li>
               <li className={styles.item}>
-                <NavLink to="/dashboard">All Buyers</NavLink>
+                <NavLink to="/all-sellers">All Sellers</NavLink>
               </li>
             </>
           )}
