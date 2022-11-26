@@ -11,6 +11,10 @@ import MyProducts from '../pages/MyProducts/MyProducts';
 import AllBuyers from '../pages/AllBuyers/AllBuyers';
 import AllSellers from '../pages/AllSellers/AllSellers';
 import Wishlist from '../pages/Wishlist/Wishlist';
+import ProtectedRoute from './ProtectedRoute';
+import SellerRoute from './SellerRoute';
+import BuyerRoute from './BuyerRoute';
+import AdminRoute from './AdminRoute';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: '/blog',
+        element: <Blog />,
+      },
+      {
         path: '/login',
         element: <Login />,
       },
@@ -31,23 +39,72 @@ const router = createBrowserRouter([
       },
       {
         path: '/category/:type',
-        element: <Category />,
+        element: (
+          <ProtectedRoute>
+            <Category />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/my-orders',
+        element: (
+          <ProtectedRoute>
+            <BuyerRoute>
+              <h1>My Orders</h1>
+            </BuyerRoute>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/wishlist',
+        element: (
+          <ProtectedRoute>
+            <BuyerRoute>
+              <Wishlist />
+            </BuyerRoute>
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/add-product',
-        element: <AddProduct />,
+        element: (
+          <ProtectedRoute>
+            <SellerRoute>
+              <AddProduct />
+            </SellerRoute>
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/my-products',
-        element: <MyProducts />,
+        element: (
+          <ProtectedRoute>
+            <SellerRoute>
+              <MyProducts />
+            </SellerRoute>
+          </ProtectedRoute>
+        ),
       },
       {
-        path: '/blog',
-        element: <Blog />,
+        path: '/all-buyers',
+        element: (
+          <ProtectedRoute>
+            <AdminRoute>
+              <AllBuyers />
+            </AdminRoute>
+          </ProtectedRoute>
+        ),
       },
-      { path: '/all-buyers', element: <AllBuyers /> },
-      { path: '/all-sellers', element: <AllSellers /> },
-      { path: '/wishlist', element: <Wishlist /> },
+      {
+        path: '/all-sellers',
+        element: (
+          <ProtectedRoute>
+            <AdminRoute>
+              <AllSellers />
+            </AdminRoute>
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {
