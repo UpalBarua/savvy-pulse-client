@@ -8,14 +8,14 @@ const useToken = (email) => {
     const fetchToken = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/jwt?email=${email}`
+          `https://savvy-pulse-upalbarua.vercel.app/jwt?email=${email}`
         );
 
-        console.log(response);
+        const accessToken = response?.data?.accessToken;
 
-        if (response.data.accessToken) {
-          localStorage.setItem('accessToken', data.accessToken);
-          setToken(data.accessToken);
+        if (accessToken) {
+          localStorage.setItem('accessToken', accessToken);
+          setToken(accessToken);
         }
       } catch (error) {
         console.error(error);

@@ -11,6 +11,7 @@ const AllSellers = () => {
 
   const handleToggleModal = () => {
     setIsModalVisible((prevIsModalVisible) => !prevIsModalVisible);
+    // document.body.style.overflow = isModalVisible ? 'hidden' : 'unset';
   };
 
   const { data: allSellersData = [], refetch } = useQuery({
@@ -18,7 +19,7 @@ const AllSellers = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          'http://localhost:3000/user/all?type=seller'
+          'https://savvy-pulse-upalbarua.vercel.app/user/all?type=seller'
         );
         return response.data;
       } catch (error) {
@@ -30,7 +31,7 @@ const AllSellers = () => {
   const deleteSeller = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/user/delete/${deleteId}`
+        `https://savvy-pulse-upalbarua.vercel.app/user/delete/${deleteId}`
       );
 
       if (response?.data?.deletedCount > 0) {
@@ -61,31 +62,35 @@ const AllSellers = () => {
     };
   };
 
-  // console.log(allSellersData);
+  if (!allSellersData.length) {
+    return <FailedToLoad />;
+  }
 
   return (
-    <section className="container">
-      <h2>All Sellers</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Verified</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allSellersData.map((seller) => (
-            <AllSellerRow
-              key={seller._id}
-              seller={seller}
-              handleDelete={handleDelete}
-              refetch={refetch}
-            />
-          ))}
-        </tbody>
-      </table>
+    <section className="container flow margin-block">
+      <h2 className="title-primary">All Sellers</h2>
+      <div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Verified</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allSellersData.map((seller) => (
+              <AllSellerRow
+                key={seller._id}
+                seller={seller}
+                handleDelete={handleDelete}
+                refetch={refetch}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {isModalVisible && (
         <ConfirmationModal

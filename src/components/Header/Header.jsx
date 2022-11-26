@@ -8,11 +8,14 @@ import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import useUserType from '../../hooks/useUserType';
 import axios from 'axios';
+import useToken from '../../hooks/useToken';
 
 const Header = () => {
   const [isNavVisible, setIsNavVisible] = useState(false);
   const { user, logOut } = useAuth();
   const { userType } = useUserType(user?.email);
+
+  const { token } = useToken('niaz@mail.com');
 
   const handleNavToggle = () => {
     setIsNavVisible((prevIsNavVisible) => !prevIsNavVisible);
@@ -70,7 +73,7 @@ const Header = () => {
 
           {user?.uid ? (
             <li className={styles.item}>
-              <button className="btn-primary" onClick={logOut}>
+              <button className="btn-secondary" onClick={logOut}>
                 Logout
               </button>
             </li>

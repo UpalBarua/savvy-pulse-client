@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Toaster, toast } from 'react-hot-toast';
 import styles from './AddProduct.module.css';
 import { useNavigate } from 'react-router-dom';
+import format from 'date-fns/format';
 
 const AddProduct = () => {
   const { user } = useAuth();
@@ -24,11 +25,11 @@ const AddProduct = () => {
       },
       condition: {
         health: form.condition.value,
-        purchased: form.purchased.value,
+        purchased: format(new Date(form.purchased.value), 'PP'),
         used: form.used.value,
       },
       seller: user?.email,
-      postedOn: new Date(),
+      postedOn: format(new Date(), 'PP'),
       location: form.location.value,
       phone: form.phone.value,
       isAvailable: true,
@@ -37,7 +38,7 @@ const AddProduct = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/products/new',
+        'https://savvy-pulse-upalbarua.vercel.app/products/new',
         formData
       );
       if (response?.data?.acknowledged) {
@@ -54,15 +55,14 @@ const AddProduct = () => {
         });
         navigate('/my-products');
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <section className="container">
-      <h2>Add product</h2>
+    <section className={'container flow margin-block'}>
+      <h2 className="title-primary">Add product</h2>
       <form className={styles.addProduct} onSubmit={handleAddProduct}>
         <div className="control">
           <label className="label">Name</label>
@@ -70,10 +70,15 @@ const AddProduct = () => {
         </div>
         <div className="control">
           <label className="label">Description</label>
-          <textarea className="input" name="description" type="text" />
+          <textarea
+            className="input"
+            name="description"
+            type="text"
+            style={{ resize: 'none' }}
+          />
         </div>
         <div className="control">
-          <label className="label">Picture</label>
+          <label className="label">Picture url</label>
           <input className="input" name="picture" type="text" required />
         </div>
         <div className="control">

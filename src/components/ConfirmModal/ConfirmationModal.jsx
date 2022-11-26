@@ -8,7 +8,7 @@ const ConfirmationModal = ({ title, message, cancelFn, confirmFn }) => {
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.message}>{message}</p>
         <div className={styles.btnGroup}>
-          <button className="btn-primary" onClick={cancelFn}>
+          <button className="btn-secondary" onClick={cancelFn}>
             Cancel
           </button>
           <button className="btn-primary" onClick={confirmFn}>

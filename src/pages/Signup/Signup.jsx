@@ -4,7 +4,7 @@ import { LeapFrog } from '@uiball/loaders';
 import styles from './Signup.module.css';
 import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../../hooks/useToken';
 
@@ -24,7 +24,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/user/new',
+        'https://savvy-pulse-upalbarua.vercel.app/user/new',
         newUser
       );
 
@@ -104,9 +104,9 @@ const Signup = () => {
   };
 
   return (
-    <section className="container">
+    <section className="container flow margin-block">
       <div className={styles.signup}>
-        <h2>Signup</h2>
+        <h2 className="title-primary">Signup</h2>
         <form onSubmit={handleSignup}>
           <div className="control">
             <label className="label">Name</label>
@@ -128,13 +128,22 @@ const Signup = () => {
             </select>
           </div>
           {isLoading ? (
-            <LeapFrog size={40} speed={2.5} color="#c558ef" />
+            <div className={styles.spinner}>
+              <LeapFrog size={40} speed={2.5} color="#c558ef" />
+            </div>
           ) : (
             <>
-              <button className="btn-primary" type="submit">
-                Sign Up
-              </button>
-              <button onClick={handleGoogleSignup}>google</button>
+              <div className={styles.btnGroup}>
+                <button className="btn-primary" type="submit">
+                  Sign Up
+                </button>
+                <button className="btn-secondary" onClick={handleGoogleSignup}>
+                  google
+                </button>
+              </div>
+              <p className={styles.suggestion}>
+                <Link to="/login">or Login</Link>
+              </p>
             </>
           )}
         </form>

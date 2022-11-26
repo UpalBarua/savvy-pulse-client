@@ -3,8 +3,9 @@
   place-content: center;
   position: fixed;
   inset: 0;
-  background-color: #333335;
+  background-color: rgba(28, 28, 30, 0.75);
   transform: scale(0);
+  z-index: 20;
 }
 
 .overlay[data-visible='true'] {

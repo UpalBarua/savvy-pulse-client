@@ -5,6 +5,7 @@ import axios from 'axios';
 import styles from './Category.module.css';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import FailedToLoad from '../../components/FailedToLoad/FailedToLoad';
 
 // const PRODUCTS = [
 //   {
@@ -96,7 +97,7 @@ const Category = () => {
   // useEffect(() => {
   //   const fetchProductsData = async () => {
   //     const response = await axios.get(
-  //       `http://localhost:3000/categories/${params.type}`
+  //       `https://savvy-pulse-upalbarua.vercel.app/categories/${params.type}`
   //     );
   //     setProductsData(response.data);
   //   };
@@ -108,7 +109,7 @@ const Category = () => {
     queryKey: ['products'],
     queryFn: async () => {
       const response = await axios.get(
-        `http://localhost:3000/products/${params.type}`
+        `https://savvy-pulse-upalbarua.vercel.app/products/${params.type}`
       );
       return response.data;
     },
@@ -116,14 +117,21 @@ const Category = () => {
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
   };
 
+  if (!products.length) {
+    return <FailedToLoad />;
+  }
+
   return (
-    <section className="container">
+    <section className="container flow margin-block">
+      <h2 className="title-primary">{params.type} guitars</h2>
       <div className={styles.grid}>
         {products.map((product) => (
           <CategoryCard

@@ -7,8 +7,6 @@ const BuyerRoute = ({ children }) => {
   const { user } = useAuth();
   const { userType } = useUserType(user?.email);
 
-  console.log(userType);
-
   return userType === 'buyer' ? children : <NotFound />;
 };
 

@@ -1,5 +1,5 @@
 .overlay {
-  background-color: var(--clr-dark-500);
+  background-color: rgba(28, 28, 30, 0.75);
   position: fixed;
   inset: 0;
   display: grid;
@@ -14,11 +14,16 @@
   box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-300);
+  align-items: center;
+  gap: var(--spacing-400);
+}
+
+.modal p {
+  width: 75%;
 }
 
 .title {
-  font-size: var(--fs-500);
+  font-size: var(--fs-600);
   font-weight: var(--fw-semibold);
 }
 

@@ -8,7 +8,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from 'firebase/auth';
-import { LeapFrog } from '@uiball/loaders';
+import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -59,31 +59,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!isLoading ? (
-        children
-      ) : (
-        <div
-          style={{
-            position: 'fixed',
-          }}>
-          <LeapFrog size={60} speed={2.5} color="#c558ef" />
-        </div>
-
-        // <p
-        //   style={{
-        //     fontFamily: 'var(--ff-secondary)',
-        //     fontSize: 'var(--fs-700)',
-        //     fontWeight: 'var(--fw-semibold)',
-        //     color: 'var(--clr-accent-primary-400)',
-        //     position: 'fixed',
-        //     top: '50%',
-        //     right: '50%',
-        //     transform: 'translate(50%, -50%)',
-        //     lineHeight: '0',
-        //   }}>
-        //   Loading...
-        // </p>
-      )}
+      {!isLoading ? children : <LoadingSpinner />}
     </AuthContext.Provider>
   );
 };

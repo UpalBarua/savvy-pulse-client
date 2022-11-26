@@ -9,7 +9,7 @@ const Advertisement = () => {
     queryKey: ['advertisedData'],
     queryFn: async () => {
       const response = await axios.get(
-        'http://localhost:3000/my-products/advertised'
+        'https://savvy-pulse-upalbarua.vercel.app/my-products/advertised'
       );
       return response.data;
     },
@@ -20,9 +20,9 @@ const Advertisement = () => {
   }
 
   return (
-    <section className="container">
-      <h2>Advertisements</h2>
-      <div>
+    <section className="container flow margin-block">
+      <h2 className="title-primary">Advertisements</h2>
+      <div className={styles.grid}>
         {advertisedData.map((data) => (
           <CategoryCard key={data._id} product={data} />
         ))}

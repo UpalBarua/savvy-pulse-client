@@ -4,6 +4,7 @@ import axios from 'axios';
 import TableRow from './TableRow';
 import ConfirmationModal from '../../components/ConfirmModal/ConfirmationModal';
 import { Toaster, toast } from 'react-hot-toast';
+import FailedToLoad from '../../components/FailedToLoad/FailedToLoad';
 
 const AllBuyers = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -11,6 +12,7 @@ const AllBuyers = () => {
 
   const handleToggleModal = () => {
     setIsModalVisible((prevIsModalVisible) => !prevIsModalVisible);
+    // document.body.style.overflow = isModalVisible ? 'hidden' : 'unset';
   };
 
   const { data: allBuyersData = [], refetch } = useQuery({
@@ -18,7 +20,7 @@ const AllBuyers = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          'http://localhost:3000/user/all?type=buyer'
+          'https://savvy-pulse-upalbarua.vercel.app/user/all?type=buyer'
         );
         return response.data;
       } catch (error) {
@@ -30,7 +32,7 @@ const AllBuyers = () => {
   const deleteBuyer = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/user/delete/${deleteId}`
+        `https://savvy-pulse-upalbarua.vercel.app/user/delete/${deleteId}`
       );
 
       if (response?.data?.deletedCount > 0) {
@@ -61,29 +63,33 @@ const AllBuyers = () => {
     };
   };
 
-  // console.log(allBuyersData);
+  if (!allBuyersData.length) {
+    return <FailedToLoad />;
+  }
 
   return (
-    <section className="container">
-      <h2>All Buyers</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allBuyersData.map((buyer) => (
-            <TableRow
-              key={buyer._id}
-              buyer={buyer}
-              handleDelete={handleDelete}
-            />
-          ))}
-        </tbody>
-      </table>
+    <section className="container flow margin-block">
+      <h2 className="title-primary">All Buyers</h2>
+      <div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allBuyersData.map((buyer) => (
+              <TableRow
+                key={buyer._id}
+                buyer={buyer}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {isModalVisible && (
         <ConfirmationModal

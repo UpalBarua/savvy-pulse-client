@@ -4,24 +4,21 @@ import styles from './ProductRow.module.css';
 import axios from 'axios';
 
 const ProductRow = ({ product, refetch, handleDelete }) => {
-  const { _id, name, img, postedOn, price, type, isAvailable, isAdvertised } =
-    product;
-
-  // console.log(product);
+  const {
+    _id,
+    name,
+    picture,
+    postedOn,
+    price,
+    type,
+    isAvailable,
+    isAdvertised,
+  } = product;
 
   const handleProductSell = async () => {
     try {
-      // const response = await fetch(
-      //   `http://localhost:3000/my-products/sell/${_id}`,
-      //   {
-      //     method: 'PATCH',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
       const response = await axios.patch(
-        `http://localhost:3000/my-products/sell/${_id}`
+        `https://savvy-pulse-upalbarua.vercel.app/my-products/sell/${_id}`
       );
 
       if (response?.data?.modifiedCount > 0) {
@@ -34,17 +31,8 @@ const ProductRow = ({ product, refetch, handleDelete }) => {
 
   const handleProductAdvertisement = async () => {
     try {
-      // const response = await fetch(
-      //   `http://localhost:3000/my-products/sell/${_id}`,
-      //   {
-      //     method: 'PATCH',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
       const response = await axios.patch(
-        `http://localhost:3000/my-products/advertisements/${_id}`
+        `https://savvy-pulse-upalbarua.vercel.app/my-products/advertisements/${_id}`
       );
 
       if (response?.data?.modifiedCount > 0) {
@@ -57,12 +45,8 @@ const ProductRow = ({ product, refetch, handleDelete }) => {
 
   return (
     <tr>
-      <td>
-        <img
-          className={styles.avatar}
-          src="https://images.saymedia-content.com/.image/t_share/MTkyNTgxMDA4ODY2OTQ0NTQ4/best-electric-guitar-for-intermediate-players.jpg"
-          alt=""
-        />
+      <td className={styles.imgTd}>
+        <img className={styles.avatar} src={picture} alt={name} />
       </td>
       <td>
         <p>{name}</p>
@@ -74,28 +58,29 @@ const ProductRow = ({ product, refetch, handleDelete }) => {
         <p>${price.resale}</p>
       </td>
       <td>
-        <p>{format(new Date(postedOn), 'PP')}</p>
+        {/* <p>{format(new Date(postedOn), 'PP')}</p> */}
+        <p>{postedOn}</p>
       </td>
       {isAvailable ? (
         <td>
-          <button className="btn-primary" onClick={handleProductAdvertisement}>
-            {isAdvertised ? (
-              <span>Remove Advertisement</span>
-            ) : (
-              <span>Advertise</span>
-            )}
+          <button
+            className={isAdvertised ? 'btn-toggle--on' : 'btn-toggle--off'}
+            onClick={handleProductAdvertisement}>
+            {isAdvertised ? <span>Remove Ad</span> : <span>Advertise</span>}
           </button>
         </td>
       ) : (
         <td />
       )}
       <td>
-        <button className="btn-primary" onClick={handleProductSell}>
+        <button
+          className={isAvailable ? 'btn-toggle--on' : 'btn-toggle--off'}
+          onClick={handleProductSell}>
           {isAvailable ? <span>Available</span> : <span>Sold</span>}
         </button>
       </td>
       <td>
-        <button className="btn-primary" onClick={handleDelete(_id)}>
+        <button className="btn-delete" onClick={handleDelete(_id)}>
           Delete
         </button>
       </td>

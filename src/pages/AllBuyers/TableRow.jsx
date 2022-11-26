@@ -8,7 +8,7 @@ const TableRow = ({ buyer, handleDelete }) => {
       <td>{name}</td>
       <td>{email}</td>
       <td>
-        <button className="btn-primary" onClick={handleDelete(_id)}>
+        <button className="btn-delete" onClick={handleDelete(_id)}>
           delete
         </button>
       </td>
