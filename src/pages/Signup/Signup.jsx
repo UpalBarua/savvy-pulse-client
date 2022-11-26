@@ -6,11 +6,14 @@ import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { signUp, googleSignIn, updateUserProfile } = useAuth();
   const navigate = useNavigate();
+  const [tokenEmail, setTokenEmail] = useState('');
+  const { token } = useToken(tokenEmail);
 
   const saveUser = async (name, email, type = 'buyer') => {
     const newUser = { name, email, type };
@@ -24,6 +27,10 @@ const Signup = () => {
         'http://localhost:3000/user/new',
         newUser
       );
+
+      if (response?.acknowledged) {
+        setTokenEmail(email);
+      }
     } catch (error) {
       console.log(error);
     }
