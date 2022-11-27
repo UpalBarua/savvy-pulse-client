@@ -73,6 +73,7 @@
   border: 2px solid transparent;
   color: var(--clr-light-400);
   font-size: var(--fs-500);
+  cursor: pointer;
 }
 
 .btnToggled {
@@ -83,6 +84,7 @@
   border: 2px solid var(--clr-accent-400);
   color: var(--clr-accent-400);
   font-size: var(--fs-500);
+  cursor: pointer;
 }
 
 @media screen and (min-with: 48em) {

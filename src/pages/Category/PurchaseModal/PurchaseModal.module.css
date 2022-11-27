@@ -42,5 +42,5 @@
 .purchaseForm {
   width: min(100vw - 4rem, 25rem);
   height: 25rem;
-  overflow: scroll;
+  overflow-y: scroll;
 }

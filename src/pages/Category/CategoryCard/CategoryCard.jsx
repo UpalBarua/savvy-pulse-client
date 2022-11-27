@@ -26,16 +26,17 @@ const CategoryCard = ({ product, handleModalOpen, setModalData, refetch }) => {
 
   const handlePurchase = () => {
     handleModalOpen();
-    setModalData({
-      product: name,
-      price: resalePrice,
-    });
+    setModalData(product);
+    // setModalData({
+    //   product: name,
+    //   price: resalePrice,
+    // });
   };
 
   const handleWishlistToggle = async () => {
     try {
       const response = await axios.patch(
-        `https://savvy-pulse-upalbarua.vercel.app/my-products/wishlist/new/${_id}`
+        `http://localhost:3000/my-products/wishlist/new/${_id}`
       );
 
       if (response?.data?.modifiedCount > 0) {

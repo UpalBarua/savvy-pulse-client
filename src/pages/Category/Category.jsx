@@ -6,6 +6,7 @@ import styles from './Category.module.css';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import FailedToLoad from '../../components/FailedToLoad/FailedToLoad';
+import { Toaster } from 'react-hot-toast';
 
 // const PRODUCTS = [
 //   {
@@ -97,7 +98,7 @@ const Category = () => {
   // useEffect(() => {
   //   const fetchProductsData = async () => {
   //     const response = await axios.get(
-  //       `https://savvy-pulse-upalbarua.vercel.app/categories/${params.type}`
+  //       `http://localhost:3000/categories/${params.type}`
   //     );
   //     setProductsData(response.data);
   //   };
@@ -109,7 +110,7 @@ const Category = () => {
     queryKey: ['products'],
     queryFn: async () => {
       const response = await axios.get(
-        `https://savvy-pulse-upalbarua.vercel.app/products/${params.type}`
+        `http://localhost:3000/products/${params.type}`
       );
       return response.data;
     },
@@ -148,6 +149,7 @@ const Category = () => {
         handleModalClose={handleModalClose}
         modalData={modalData}
       />
+      <Toaster position="top-center" reverseOrder={false} />
     </section>
   );
 };

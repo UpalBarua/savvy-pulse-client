@@ -15,6 +15,7 @@ import ProtectedRoute from './ProtectedRoute';
 import SellerRoute from './SellerRoute';
 import BuyerRoute from './BuyerRoute';
 import AdminRoute from './AdminRoute';
+import MyOrders from '../pages/MyOrders/MyOrders';
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BuyerRoute>
-              <h1>My Orders</h1>
+              <MyOrders />
             </BuyerRoute>
           </ProtectedRoute>
         ),
