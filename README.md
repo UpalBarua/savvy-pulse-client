@@ -2,7 +2,7 @@
 
 SavvyPulse is a platform where you find the best guitars in town!
 
-Live Site: https://assignment-11-9bee5.web.app/
+Live Site: https://savvy-pulse.web.app/
 
 ## Tools used ️⚒️
 
