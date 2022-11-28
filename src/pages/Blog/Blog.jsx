@@ -3,18 +3,21 @@ import styles from './Blog.module.css';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import FailedToLoad from '../../components/FailedToLoad/FailedToLoad';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const Blog = () => {
   const { data: blogData = [] } = useQuery({
     queryKey: ['blogData'],
     queryFn: async () => {
-      const response = await axios.get('http://localhost:3000/blog');
+      const response = await axios.get(
+        'https://savvy-pulse-upalbarua.vercel.app/blog'
+      );
       return response.data;
     },
   });
 
   if (!blogData.length) {
-    return <FailedToLoad />;
+    return <LoadingSpinner />;
   }
 
   return (

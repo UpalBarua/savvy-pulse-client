@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { GoVerified } from 'react-icons/go';
@@ -9,6 +9,9 @@ import { Toaster, toast } from 'react-hot-toast';
 import format from 'date-fns/format';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsCartCheck, BsBookmarkHeart } from 'react-icons/bs';
+import { useQueries, useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { async } from '@firebase/util';
 
 const CategoryCard = ({ product, handleModalOpen, setModalData, refetch }) => {
   const {
@@ -24,19 +27,28 @@ const CategoryCard = ({ product, handleModalOpen, setModalData, refetch }) => {
     price,
   } = product;
 
+  const [isVerified, setIsVerified] = useState(false);
+
   const handlePurchase = () => {
     handleModalOpen();
     setModalData(product);
-    // setModalData({
-    //   product: name,
-    //   price: resalePrice,
-    // });
   };
+
+  useEffect(() => {
+    const fetchIsVerified = async () => {
+      const response = await axios.get(
+        `https://savvy-pulse-upalbarua.vercel.app/user/seller/verify/${seller}`
+      );
+      setIsVerified(response.data);
+    };
+
+    fetchIsVerified();
+  }, [seller]);
 
   const handleWishlistToggle = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:3000/my-products/wishlist/new/${_id}`
+        `https://savvy-pulse-upalbarua.vercel.app/my-products/wishlist/new/${_id}`
       );
 
       if (response?.data?.modifiedCount > 0) {
@@ -68,7 +80,7 @@ const CategoryCard = ({ product, handleModalOpen, setModalData, refetch }) => {
         <h3 className={styles.title}>{name}</h3>
         <p className={styles.seller}>
           <span>{seller}</span>
-          <GoVerified className={styles.icon} />
+          {isVerified && <GoVerified className={styles.icon} />}
         </p>
         <p>{format(new Date(postedOn), 'PP')}</p>
       </div>

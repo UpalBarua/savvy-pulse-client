@@ -6,9 +6,16 @@ import Categories from '../pages/Home/Categories/Categories';
 
 const MainLayout = () => {
   return (
-    <main>
-      <Header />
-      <Outlet />
+    <main
+      style={{
+        height: '100vh',
+        display: 'grid',
+        gridTemplateRows: '1fr auto',
+      }}>
+      <div>
+        <Header />
+        <Outlet />
+      </div>
       <Footer />
     </main>
   );

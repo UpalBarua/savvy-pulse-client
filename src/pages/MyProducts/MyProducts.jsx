@@ -9,6 +9,7 @@ import ConfirmationModal from '../../components/ConfirmModal/ConfirmationModal';
 import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import FailedToLoad from '../../components/FailedToLoad/FailedToLoad';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const MyProducts = () => {
   const { user } = useAuth();
@@ -17,13 +18,12 @@ const MyProducts = () => {
 
   const handleToggleModal = () => {
     setIsModalVisible((prevIsModalVisible) => !prevIsModalVisible);
-    // document.body.style.overflow = isModalVisible ? 'hidden' : 'unset';
   };
 
   const deleteProduct = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/my-products/delete/${deleteId}`
+        `https://savvy-pulse-upalbarua.vercel.app/my-products/delete/${deleteId}`
       );
 
       if (response?.data?.deletedCount > 0) {
@@ -59,7 +59,7 @@ const MyProducts = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/my-products/${user?.email}`
+          `https://savvy-pulse-upalbarua.vercel.app/my-products/${user?.email}`
         );
         return response.data;
       } catch (error) {
@@ -69,7 +69,7 @@ const MyProducts = () => {
   });
 
   if (!products.length) {
-    return <FailedToLoad />;
+    return <LoadingSpinner />;
   }
 
   return (

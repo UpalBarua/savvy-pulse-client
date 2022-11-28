@@ -12,7 +12,12 @@ const MyOrders = () => {
     queryKey: ['myOrders'],
     queryFn: async () => {
       const response = await axios.get(
-        `http://localhost:3000/orders?email=${user?.email}`
+        `https://savvy-pulse-upalbarua.vercel.app/orders?email=${user?.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
       );
       return response.data;
     },

@@ -99,7 +99,19 @@
   text-transform: capitalize;
   position: relative;
   text-align: center;
-  padding-block: var(--spacing-300);
+  margin-block: var(--spacing-800);
+}
+
+.title-primary::after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 6px;
+  width: 5rem;
+  right: 50%;
+  transform: translateX(50%);
+  margin-block: var(--spacing-400);
+  background-color: var(--clr-accent-400);
 }
 
 @media screen and (min-width: 48em) {

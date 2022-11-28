@@ -7,110 +7,23 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import FailedToLoad from '../../components/FailedToLoad/FailedToLoad';
 import { Toaster } from 'react-hot-toast';
-
-// const PRODUCTS = [
-//   {
-//     id: 1,
-//     img: 'https://guitarspace.org/wp-content/uploads/2021/03/Best-Acoustic-Guitar-768x517.png',
-//     name: 'Gibson Hummingbird 1',
-//     type: 'Acoustic',
-//     location: 'Chittagong',
-//     resalePrice: 2000,
-//     originalPrice: 3999,
-//     used: 1,
-//     postedOn: new Date(),
-//     seller: 'John Doe',
-//     verified: true,
-//   },
-//   {
-//     id: 2,
-//     img: 'https://guitarspace.org/wp-content/uploads/2021/03/Best-Acoustic-Guitar-768x517.png',
-//     name: 'Gibson Hummingbird 2',
-//     type: 'Acoustic',
-//     location: 'Chittagong',
-//     resalePrice: 2000,
-//     originalPrice: 3999,
-//     used: 1,
-//     postedOn: new Date(),
-//     seller: 'John Doe',
-//     verified: true,
-//   },
-//   {
-//     id: 3,
-//     img: 'https://guitarspace.org/wp-content/uploads/2021/03/Best-Acoustic-Guitar-768x517.png',
-//     name: 'Gibson Hummingbird 3',
-//     type: 'Electric',
-//     location: 'Chittagong',
-//     resalePrice: 2000,
-//     originalPrice: 3999,
-//     used: 1,
-//     postedOn: new Date(),
-//     seller: 'John Doe',
-//     verified: true,
-//   },
-//   {
-//     id: 4,
-//     img: 'https://guitarspace.org/wp-content/uploads/2021/03/Best-Acoustic-Guitar-768x517.png',
-//     name: 'Gibson Hummingbird 4',
-//     type: 'Electric',
-//     location: 'Chittagong',
-//     resalePrice: 2000,
-//     originalPrice: 3999,
-//     used: 1,
-//     postedOn: new Date(),
-//     seller: 'John Doe',
-//     verified: true,
-//   },
-//   {
-//     id: 5,
-//     img: 'https://guitarspace.org/wp-content/uploads/2021/03/Best-Acoustic-Guitar-768x517.png',
-//     name: 'Gibson Hummingbird 5',
-//     type: 'Bass',
-//     location: 'Chittagong',
-//     resalePrice: 2000,
-//     originalPrice: 3999,
-//     used: 1,
-//     postedOn: new Date(),
-//     seller: 'John Doe',
-//     verified: true,
-//   },
-//   {
-//     id: 6,
-//     img: 'https://guitarspace.org/wp-content/uploads/2021/03/Best-Acoustic-Guitar-768x517.png',
-//     name: 'Gibson Hummingbird 6',
-//     type: 'Bass',
-//     location: 'Chittagong',
-//     resalePrice: 2000,
-//     originalPrice: 3999,
-//     used: 1,
-//     postedOn: new Date(),
-//     seller: 'John Doe',
-//     verified: true,
-//   },
-// ];
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const Category = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
-  // const [productsData, setProductsData] = useState([]);
   const params = useParams();
-
-  // useEffect(() => {
-  //   const fetchProductsData = async () => {
-  //     const response = await axios.get(
-  //       `http://localhost:3000/categories/${params.type}`
-  //     );
-  //     setProductsData(response.data);
-  //   };
-
-  //   fetchProductsData();
-  // }, []);
 
   const { data: products = [], refetch } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
       const response = await axios.get(
-        `http://localhost:3000/products/${params.type}`
+        `https://savvy-pulse-upalbarua.vercel.app/products/${params.type}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
       );
       return response.data;
     },
@@ -127,7 +40,7 @@ const Category = () => {
   };
 
   if (!products.length) {
-    return <FailedToLoad />;
+    return <LoadingSpinner />;
   }
 
   return (

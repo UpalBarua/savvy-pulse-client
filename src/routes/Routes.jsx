@@ -16,6 +16,7 @@ import SellerRoute from './SellerRoute';
 import BuyerRoute from './BuyerRoute';
 import AdminRoute from './AdminRoute';
 import MyOrders from '../pages/MyOrders/MyOrders';
+import FailedToLoad from '../components/FailedToLoad/FailedToLoad';
 
 const router = createBrowserRouter([
   {
@@ -25,10 +26,12 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/blog',
         element: <Blog />,
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/login',
@@ -45,6 +48,7 @@ const router = createBrowserRouter([
             <Category />
           </ProtectedRoute>
         ),
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/my-orders',
@@ -55,6 +59,7 @@ const router = createBrowserRouter([
             </BuyerRoute>
           </ProtectedRoute>
         ),
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/wishlist',
@@ -65,6 +70,7 @@ const router = createBrowserRouter([
             </BuyerRoute>
           </ProtectedRoute>
         ),
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/add-product',
@@ -75,6 +81,7 @@ const router = createBrowserRouter([
             </SellerRoute>
           </ProtectedRoute>
         ),
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/my-products',
@@ -85,6 +92,7 @@ const router = createBrowserRouter([
             </SellerRoute>
           </ProtectedRoute>
         ),
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/all-buyers',
@@ -95,6 +103,7 @@ const router = createBrowserRouter([
             </AdminRoute>
           </ProtectedRoute>
         ),
+        errorElement: <FailedToLoad />,
       },
       {
         path: '/all-sellers',
@@ -105,6 +114,7 @@ const router = createBrowserRouter([
             </AdminRoute>
           </ProtectedRoute>
         ),
+        errorElement: <FailedToLoad />,
       },
     ],
   },

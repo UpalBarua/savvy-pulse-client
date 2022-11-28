@@ -2,10 +2,15 @@
   background-color: var(--clr-dark-400);
   padding-block: var(--spacing-700);
   margin-top: 10%;
+  text-align: center;
+}
+
+.flex {
   display: flex;
-  gap: var(--spacing-300);
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: var(--spacing-500);
 }
 
 .socialLinks {
@@ -18,8 +23,8 @@
   font-size: var(--fs-500);
   padding: var(--spacing-400);
   border-radius: 50%;
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 1rem;
+  width: 1rem;
   display: grid;
   place-content: center;
   line-height: 0;
@@ -33,4 +38,16 @@
   font-weight: var(--fw-semibold);
   color: var(--clr-accent-400);
   font-family: var(--ff-secondary);
+}
+
+@media screen and (min-width: 48em) {
+  .footer {
+    padding-block: var(--spacing-400);
+  }
+
+  .flex {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

@@ -4,6 +4,7 @@ import axios from 'axios';
 import ConfirmationModal from '../../components/ConfirmModal/ConfirmationModal';
 import { Toaster, toast } from 'react-hot-toast';
 import AllSellerRow from './AllSellersRow';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const AllSellers = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -11,7 +12,6 @@ const AllSellers = () => {
 
   const handleToggleModal = () => {
     setIsModalVisible((prevIsModalVisible) => !prevIsModalVisible);
-    // document.body.style.overflow = isModalVisible ? 'hidden' : 'unset';
   };
 
   const { data: allSellersData = [], refetch } = useQuery({
@@ -19,7 +19,12 @@ const AllSellers = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          'http://localhost:3000/user/all?type=seller'
+          'https://savvy-pulse-upalbarua.vercel.app/user/all?type=seller',
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          }
         );
         return response.data;
       } catch (error) {
@@ -31,7 +36,7 @@ const AllSellers = () => {
   const deleteSeller = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/user/delete/${deleteId}`
+        `https://savvy-pulse-upalbarua.vercel.app/user/delete/${deleteId}`
       );
 
       if (response?.data?.deletedCount > 0) {
@@ -63,7 +68,7 @@ const AllSellers = () => {
   };
 
   if (!allSellersData.length) {
-    return <FailedToLoad />;
+    return <LoadingSpinner />;
   }
 
   return (
